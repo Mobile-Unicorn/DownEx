@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cyou.downex.R;
 import com.unicorn.downex.core.Constants;
 import com.unicorn.downex.core.DownloadMessage.BooleanMessage;
 import com.unicorn.downex.core.DownloadMessage.ProgressMessage;
