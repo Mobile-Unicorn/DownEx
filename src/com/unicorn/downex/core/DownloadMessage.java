@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 2014 The DownEx Project of ChangYou
+ * Copyright (C) 2014 The DownEx Project of Unicorn
  *
- * 本文件涉及代码允许在畅游公司的所属项目中使用
+ * muzzyhorse
  */
 package com.unicorn.downex.core;
 
