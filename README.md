@@ -1,0 +1,1 @@
+This light framework could be used to develop android application with "download" features.It provides accross-process communication for your application.So you could get some useful infomation such as progress anywhere!You can also control the download job by sending a command message!When you return the app from other apps,you could also restore the progress easily.
