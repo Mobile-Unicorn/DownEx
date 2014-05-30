@@ -127,6 +127,7 @@ public final class DownloadThread implements Runnable {
                 }
             }
         }
+        throw new StopException(Constants.Status.ERROR_TOO_MANY_REDIRECTS, "too many redirects");
 	}
 	
 	//处理下载完成的文件

@@ -138,11 +138,9 @@ public final class Downloader {
 	    	mMonitor = Executors.newScheduledThreadPool(5);
 	        //接收进度消息
 	        final ProgressMessageList list = new ProgressMessageList();
-	        mMonitor.scheduleAtFixedRate(new Runnable() {
-                
-                @Override
-                public void run() {
-                    list.clear();
+	        final Runnable queryThread = new Runnable() {
+				public void run() {
+					list.clear();
                     //同步发送接收消息
                     synchronized (mInstance) {
                         mStreamer.sendCommand(Constants.Command.REQUEST_PROGRESS);
@@ -161,8 +159,10 @@ public final class Downloader {
                             handler.sendMessage(msg);
                         }
                     }
-                }
-            }, timespan, timespan, TimeUnit.SECONDS);
+				}
+			};
+	        
+	        mMonitor.scheduleAtFixedRate(queryThread, timespan, timespan, TimeUnit.SECONDS);
 	    }
 
 	}

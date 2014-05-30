@@ -149,6 +149,7 @@ class DownloadServerThread implements Runnable {
                                     msg.currentBytes = entry.getValue().mCurrentBytes;
                                     msg.totalBytes = entry.getValue().mTotalBytes;
                                     msg.status = info.mStatus;
+                                    msg.retryAfter = info.mRetryAfter;
                                     plMsg.add(msg);
                                 } 
                                 

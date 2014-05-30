@@ -87,7 +87,6 @@ public final class Constants {
     	public static final int RESPONSE_RESUME = RESPONSE_PAUSE + 1;
     	/** 下载响应消息-终止 */
     	public static final int RESPONSE_STOP = RESPONSE_RESUME + 1;
-    	
     }
     
     /**
@@ -119,6 +118,8 @@ public final class Constants {
         public static final int ERROR_HTTP_UNAVAILIABLE = 405;
         /** 无法继续下载错误（断点续传时，断点位置超过文件总大小） */
         public static final int ERROR_CANNOT_RESUME = 407;
+        /** 重定向次数过多错误 */
+        public static final int ERROR_TOO_MANY_REDIRECTS = 408;
         
         private Status() {
             
