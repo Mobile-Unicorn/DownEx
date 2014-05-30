@@ -6,6 +6,7 @@ package com.unicorn.downex.core;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -51,7 +52,7 @@ public final class Downloader {
 	private Downloader() {
 		mStreamer = new MessageStreamer();
 		mStreamer.open(mName);
-		mHanlders = new ArrayList<Handler>();
+		mHanlders = Collections.synchronizedList(new ArrayList<Handler>());
 	}
 	
 	public static Downloader getInstance() {
