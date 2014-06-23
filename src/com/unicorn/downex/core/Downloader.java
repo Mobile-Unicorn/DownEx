@@ -141,11 +141,11 @@ public final class Downloader {
 	        final ProgressMessageList list = new ProgressMessageList();
 	        final Runnable queryThread = new Runnable() {
 				public void run() {
-					list.clear();
                     //同步发送接收消息
                     synchronized (mInstance) {
                         mStreamer.sendCommand(Constants.Command.REQUEST_PROGRESS);
                         try {
+                            list.clear();
                             mStreamer.receive(list);
                         } catch (IOException e) {
                             e.printStackTrace();

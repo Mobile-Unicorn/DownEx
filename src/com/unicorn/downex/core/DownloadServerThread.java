@@ -44,19 +44,19 @@ class DownloadServerThread implements Runnable {
     
     private LocalServerSocket mServer;
     
+    /** 服务端监听线程运行标记 */
+    private boolean mRunning = true;
+    
     public DownloadServerThread(String name) {
         mName = name;
         mInfos = new ConcurrentHashMap<String, DownloadInfo>();
         try {
             mServer = new LocalServerSocket(mName);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             mRunning = false;
         }
     }
-    
-    private boolean mRunning = true;
     
     @Override
     public void run() {
@@ -69,7 +69,6 @@ class DownloadServerThread implements Runnable {
                 Executors.newSingleThreadExecutor().execute(t);
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -183,7 +182,6 @@ class DownloadServerThread implements Runnable {
                             break;
                     }
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }

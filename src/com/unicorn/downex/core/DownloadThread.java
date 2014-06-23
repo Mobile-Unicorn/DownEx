@@ -11,6 +11,7 @@ import static java.net.HttpURLConnection.HTTP_PARTIAL;
 import static java.net.HttpURLConnection.HTTP_SEE_OTHER;
 import static java.net.HttpURLConnection.HTTP_UNAVAILABLE;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
+import static com.unicorn.downex.utils.Precondition.checkArgument;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -131,12 +132,17 @@ public final class DownloadThread implements Runnable {
 	}
 	
 	//处理下载完成的文件
-	private void finalizeFile(DownloadInfo info) {
-	    File file = new File(getTempFileName(info));
-	    if(file.exists()) {
-	        File destFile = new File(FileUtil.combine(info.mDir, info.mKey, FileUtil.getSuffix(info.mMime)));
-	        file.renameTo(destFile);
-	    }
+	private void finalizeFile(DownloadInfo info) throws StopException {
+	    try {
+	        File file = new File(getTempFileName(info));
+	        if(file.exists()) {
+	            File destFile = new File(FileUtil.combine(info.mDir, info.mKey, FileUtil.getSuffix(info.mMime)));
+	            file.renameTo(destFile);
+	        }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new StopException(Constants.Status.ERROR_FILE, e);
+        }
 	}
 	
 	//检查下载项信息
@@ -152,7 +158,6 @@ public final class DownloadThread implements Runnable {
 	                int start = name.indexOf("(");
 	                int end = name.indexOf(")");
 	                info.mEtag = name.substring(start + 1, end);
-	                Log.e(TAG, "mEtag:" + info.mEtag);
 	            }else{
 	                try {
 	                    files[0].createNewFile();
@@ -214,7 +219,7 @@ public final class DownloadThread implements Runnable {
 			out = new FileOutputStream(fileName, true);
 			outFd = ((FileOutputStream) out).getFD();
 			doTransfer(info, in, out);
-		} catch(IOException e) {
+		} catch(Exception e) {
 		    e.printStackTrace();
 		    throw new StopException(Constants.Status.ERROR_FILE, e);
 		} finally {
@@ -260,7 +265,10 @@ public final class DownloadThread implements Runnable {
     }     
     
     //获得下载项的临时文件名
-    private String getTempFileName(DownloadInfo info) {
+    private String getTempFileName(DownloadInfo info) throws Exception {
+        checkArgument(info.mDir != null);
+        checkArgument(info.mKey != null);
+        checkArgument(info.mEtag != null);
         return FileUtil.combine(info.mDir.concat(Constants.DOWNLOAD_TEMP_DIRECTORY), info.mKey.concat("(").concat(info.mEtag).concat(")") , Constants.DOWNLOAD_TEMP_FILE_SUFFIX);
     }
     
