@@ -37,7 +37,7 @@ public final class DownloadThread implements Runnable {
 
 	private String TAG = "DownloadThread";
 	
-	private DownloadInfo mInfo;
+	private final DownloadInfo mInfo;
 	
 	public DownloadThread(DownloadInfo info) {
 		mInfo = info;

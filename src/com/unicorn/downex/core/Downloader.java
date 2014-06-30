@@ -130,17 +130,29 @@ public final class Downloader {
 	/**
 	 * 开启定期轮询
 	 * <p>
-	 * 默认每隔一秒反馈当前系统中正在下载的任务进度信息
+	 * 以秒为单位，间隔timespan后反馈当前系统中正在下载的任务进度信息
 	 * </p>
 	 * @param timespan 轮询时间间隔
 	 */
 	public void startMonitor(int timespan) {
+	    startMonitor(timespan, TimeUnit.SECONDS);
+	}
+
+	/**
+	 * 开启定期轮询
+	 * <p>
+	 * 根据传入的单位，间隔timespan后反馈当前系统中正在下载的任务进度信息
+	 * </p>
+	 * @param timeSpan
+	 * @param unit
+	 */
+	public void startMonitor(int timespan, TimeUnit unit) {
 	    if(mMonitor == null || mMonitor.isShutdown()) {
-	    	mMonitor = Executors.newScheduledThreadPool(5);
-	        //接收进度消息
-	        final ProgressMessageList list = new ProgressMessageList();
-	        final Runnable queryThread = new Runnable() {
-				public void run() {
+            mMonitor = Executors.newScheduledThreadPool(5);
+            //接收进度消息
+            final ProgressMessageList list = new ProgressMessageList();
+            final Runnable queryThread = new Runnable() {
+                public void run() {
                     //同步发送接收消息
                     synchronized (mInstance) {
                         mStreamer.sendCommand(Constants.Command.REQUEST_PROGRESS);
@@ -160,14 +172,13 @@ public final class Downloader {
                             handler.sendMessage(msg);
                         }
                     }
-				}
-			};
-	        
-	        mMonitor.scheduleAtFixedRate(queryThread, timespan, timespan, TimeUnit.SECONDS);
-	    }
-
+                }
+            };
+            
+            mMonitor.scheduleAtFixedRate(queryThread, timespan, timespan, unit);
+        }
 	}
-
+	
 	/**
 	 * 关闭监控
 	 */
