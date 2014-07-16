@@ -43,6 +43,14 @@ public class DownloadMessage {
 
         public String value;
 
+        public StringMessage() {
+            
+        }
+        
+        public StringMessage(String value) {
+            this.value = value;
+        }
+        
 		@Override
 		public void send(JsonWriter writer) throws IOException {
 			writer.beginObject();
@@ -250,8 +258,6 @@ public class DownloadMessage {
                 add(msg);
             }
             reader.endArray();
-            
         }
-        
     }
 }

@@ -136,7 +136,11 @@ public final class DownloadThread implements Runnable {
 	    try {
 	        File file = new File(getTempFileName(info));
 	        if(file.exists()) {
-	            File destFile = new File(FileUtil.combine(info.mDir, info.mKey, FileUtil.getSuffix(info.mMime)));
+	            String suffix = FileUtil.getSuffix(info.mMime);
+	            suffix = (suffix == Constants.DOWNLOAD_UNKNOWN_FILE_SUFFIX) ? 
+	                    info.mUrl.substring(info.mUrl.lastIndexOf(".")) : suffix;
+	            
+	            File destFile = new File(FileUtil.combine(info.mDir, info.mKey, suffix));
 	            file.renameTo(destFile);
 	        }
         } catch (Exception e) {
@@ -158,6 +162,9 @@ public final class DownloadThread implements Runnable {
 	                int start = name.indexOf("(");
 	                int end = name.indexOf(")");
 	                info.mEtag = name.substring(start + 1, end);
+	                start = name.indexOf("[");
+	                end = name.indexOf("]");
+	                info.mTotalBytes = Long.parseLong(name.substring(start + 1, end));
 	            }else{
 	                try {
 	                    files[0].createNewFile();
@@ -190,7 +197,7 @@ public final class DownloadThread implements Runnable {
     //读取响应头参数
     private void readResponseHeaders(HttpURLConnection conn, DownloadInfo info){
     	if(info.mCurrentBytes != 0) {  //断点续传
-    	    mInfo.mTotalBytes = mInfo.mCurrentBytes + conn.getContentLength();
+//    	    mInfo.mTotalBytes = mInfo.mCurrentBytes + conn.getContentLength();
     	}else {                        //初始下载
     	    info.mTotalBytes = conn.getContentLength();
     	    String etag = conn.getHeaderField("ETag");
@@ -269,7 +276,10 @@ public final class DownloadThread implements Runnable {
         checkArgument(info.mDir != null);
         checkArgument(info.mKey != null);
         checkArgument(info.mEtag != null);
-        return FileUtil.combine(info.mDir.concat(Constants.DOWNLOAD_TEMP_DIRECTORY), info.mKey.concat("(").concat(info.mEtag).concat(")") , Constants.DOWNLOAD_TEMP_FILE_SUFFIX);
+        return FileUtil.combine(info.mDir.concat(Constants.DOWNLOAD_TEMP_DIRECTORY), 
+                info.mKey.concat("(").concat(info.mEtag).concat(")").                   //etag值
+                concat("[").concat(String.valueOf(info.mTotalBytes)).concat("]") ,      //总长度值
+                Constants.DOWNLOAD_TEMP_FILE_SUFFIX);
     }
     
     //解析http协议头获取重试间隔时间

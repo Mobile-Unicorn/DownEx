@@ -35,6 +35,10 @@ public final class Constants {
      */
     public static final String DOWNLOAD_TEMP_FILE_SUFFIX = ".tmp";
     /**
+     * 未知类型的文件扩展名
+     */
+    public static final String DOWNLOAD_UNKNOWN_FILE_SUFFIX = ".unknown";
+    /**
      * 临时文件夹相对路径
      */
     public static final String DOWNLOAD_TEMP_DIRECTORY = File.separator.concat("temp");
@@ -54,6 +58,9 @@ public final class Constants {
     	}
     	/** Mime类型-apk */
     	public static final String APK = "application/vnd.android.package-archive";
+    	
+    	/** Mime类型-jpg */
+    	public static final String JPG = "image/jpeg";
     }
     
     /**
@@ -78,15 +85,17 @@ public final class Constants {
     	public static final int REQUEST_PROGRESS = REQUEST_STOP + 1;
     	/** 下载请求消息-退出 */
     	public static final int REQUEST_EXIT = REQUEST_PROGRESS + 1;
+    	/** 下载请求消息-查询 */
+//    	public static final int REQUEST_QUERY = REQUEST_EXIT + 1;
     	
-    	/** 下载响应消息-开始  */
+    	/** 下载响应消息-开始  *//*
     	public static final int RESPONSE_START = 100;
-    	/** 下载响应消息-暂停 */
+    	*//** 下载响应消息-暂停 *//*
     	public static final int RESPONSE_PAUSE = RESPONSE_START + 1;
-    	/** 下载响应消息-继续 */
+    	*//** 下载响应消息-继续 *//*
     	public static final int RESPONSE_RESUME = RESPONSE_PAUSE + 1;
-    	/** 下载响应消息-终止 */
-    	public static final int RESPONSE_STOP = RESPONSE_RESUME + 1;
+    	*//** 下载响应消息-终止 *//*
+    	public static final int RESPONSE_STOP = RESPONSE_RESUME + 1;*/
     }
     
     /**

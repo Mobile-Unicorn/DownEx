@@ -18,6 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.R.string;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -26,6 +27,8 @@ import android.os.Message;
 public class MainActivity extends DownloadActivity {
 
 	private BaseAdapter mAdapter;
+	
+	private String mDir = Environment.getExternalStorageDirectory().getAbsolutePath();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public class MainActivity extends DownloadActivity {
 		mAdapter = createAdapter(createData(), createListener());
 		list.setAdapter(mAdapter);
 		
+//		queryDownload(mDir);
 		
 		startMonitorDownload(2);
 	}
@@ -124,6 +128,40 @@ public class MainActivity extends DownloadActivity {
 				"MX Player",
 				DownloadItem.MODEL_STATUS_UNDOWNLOAD,
 				"http://test.designer.c-launcher.com/resources/jp/apk/app/749/530cb1cb0cf21217accdfdbd/pack_1393340915336_8731894.apk"));
+    	/*data.add(new DownloadItem("爱奇艺", 
+    	        DownloadItem.MODEL_STATUS_UNDOWNLOAD, 
+    	        "http://gdown.baidu.com/data/wisegame/5b09a25c9c697146/aiqiyishipin_86.apk"));*/
+    	
+    	data.add(new DownloadItem("壁纸", 
+                DownloadItem.MODEL_STATUS_UNDOWNLOAD, 
+                "http://d.c-launcher.com/wallpaper/img/17/53b12885e4b0dc540acf5581/1404119173187/wallpaper.jpg"));
+    	data.add(new DownloadItem("主题", 
+                DownloadItem.MODEL_STATUS_UNDOWNLOAD, 
+                "http://test.designer.c-launcher.com/resources/themes/888/53ad44502a0fe7e957000001/320.amr"));
+    	data.add(new DownloadItem("壁纸", 
+                DownloadItem.MODEL_STATUS_UNDOWNLOAD, 
+                "http://d.c-launcher.com/wallpaper/img/17/53b12885e4b0dc540acf5581/1404119173187/wallpaper.jpg"));
+        data.add(new DownloadItem("主题", 
+                DownloadItem.MODEL_STATUS_UNDOWNLOAD, 
+                "http://test.designer.c-launcher.com/resources/themes/888/53ad44502a0fe7e957000001/320.amr"));
+        data.add(new DownloadItem("壁纸", 
+                DownloadItem.MODEL_STATUS_UNDOWNLOAD, 
+                "http://d.c-launcher.com/wallpaper/img/17/53b12885e4b0dc540acf5581/1404119173187/wallpaper.jpg"));
+        data.add(new DownloadItem("主题", 
+                DownloadItem.MODEL_STATUS_UNDOWNLOAD, 
+                "http://test.designer.c-launcher.com/resources/themes/888/53ad44502a0fe7e957000001/320.amr"));
+        data.add(new DownloadItem("壁纸", 
+                DownloadItem.MODEL_STATUS_UNDOWNLOAD, 
+                "http://d.c-launcher.com/wallpaper/img/17/53b12885e4b0dc540acf5581/1404119173187/wallpaper.jpg"));
+        data.add(new DownloadItem("主题", 
+                DownloadItem.MODEL_STATUS_UNDOWNLOAD, 
+                "http://test.designer.c-launcher.com/resources/themes/888/53ad44502a0fe7e957000001/320.amr"));
+        data.add(new DownloadItem("壁纸", 
+                DownloadItem.MODEL_STATUS_UNDOWNLOAD, 
+                "http://d.c-launcher.com/wallpaper/img/17/53b12885e4b0dc540acf5581/1404119173187/wallpaper.jpg"));
+        data.add(new DownloadItem("主题", 
+                DownloadItem.MODEL_STATUS_UNDOWNLOAD, 
+                "http://test.designer.c-launcher.com/resources/themes/888/53ad44502a0fe7e957000001/320.amr"));
     	
     	for(DownloadItem item : data) {
     	    File file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + File.separator + item.key + ".apk");
@@ -194,5 +232,8 @@ public class MainActivity extends DownloadActivity {
                 }
             }
         };
+    }
+    public static void main(String[] args) {
+        
     }
 }

@@ -5,6 +5,9 @@
  */
 package com.unicorn.downex.utils;
 
+import android.text.TextUtils;
+import android.util.Log;
+
 import com.unicorn.downex.core.Constants;
 
 import java.io.File;
@@ -91,9 +94,15 @@ public final class FileUtil {
 
                 @Override
                 public boolean accept(File dir, String filename) {
-                    if (filename.contains(keyword))
+                    if(TextUtils.isEmpty(keyword)) {    //为空时，返回目录下所有文件
                         return true;
-                    return false;
+                    } else {
+                        if (filename.contains(keyword)){//返回匹配文件名的文件
+                            return true;
+                        }else {
+                            return false;
+                        }
+                    }
                 }
             });
         }
@@ -110,6 +119,10 @@ public final class FileUtil {
         String suffix = null;
         if(mime.equals(Constants.MimeType.APK)) {
             suffix = ".apk";
+        }else if(mime.equals(Constants.MimeType.JPG)) {
+            suffix = ".jpg";
+        }else {
+            suffix = Constants.DOWNLOAD_UNKNOWN_FILE_SUFFIX;
         }
         return suffix;
     }

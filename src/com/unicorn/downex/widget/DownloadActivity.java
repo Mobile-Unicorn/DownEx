@@ -58,6 +58,15 @@ public abstract class DownloadActivity extends Activity {
 		Log.i(TAG, "Resume download " + url);
 		mDownloader.resume(url, dir);
 	}
+	
+	/**
+	 * 查询下载项信息
+	 * @param dir
+	 */
+	/*protected void queryDownload(String dir, String...keys) {
+	    mDownloader.query(dir, keys);
+	}*/
+	
 	/**
 	 * 开启下载过程监控
 	 * @param timeSpan 间隔的秒数

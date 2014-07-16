@@ -19,5 +19,6 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/title"
         android:layout_toLeftOf="@id/operate"
-        style="?android:attr/progressBarStyleHorizontal" />
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_centerVertical="true" />
 </RelativeLayout>
